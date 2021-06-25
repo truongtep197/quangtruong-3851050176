@@ -4,9 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,10 +23,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 
-import com.example.quangtruong3851050176.MainActivity;
 import com.example.quangtruong3851050176.R;
-import com.example.quangtruong3851050176.activities.CompletedTodos;
-import com.example.quangtruong3851050176.helpers.SettingsHelper;
 import com.example.quangtruong3851050176.helpers.TagDBHelper;
 import com.example.quangtruong3851050176.helpers.TodoDBHelper;
 import com.example.quangtruong3851050176.models.PendingTodoModel;
@@ -132,7 +127,6 @@ public class PendingTodoAdapter extends RecyclerView.Adapter<PendingTodoAdapter.
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final View view = layoutInflater.inflate(R.layout.edit_todo_dialog, null);
         builder.setView(view);
-        SettingsHelper.applyThemeTextView((TextView) view.findViewById(R.id.edit_todo_dialog_title), context);
         final TextInputEditText todoTitle = (TextInputEditText) view.findViewById(R.id.todo_title);
         final TextInputEditText todoContent = (TextInputEditText) view.findViewById(R.id.todo_content);
         Spinner todoTags = (Spinner) view.findViewById(R.id.todo_tag);
@@ -209,8 +203,7 @@ public class PendingTodoAdapter extends RecyclerView.Adapter<PendingTodoAdapter.
         });
         TextView cancel = (TextView) view.findViewById(R.id.cancel);
         TextView addTodo = (TextView) view.findViewById(R.id.add_new_todo);
-        SettingsHelper.applyTextColor(cancel, context);
-        SettingsHelper.applyTextColor(addTodo, context);
+
 
         AlertDialog dialog = builder.create();
 

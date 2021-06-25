@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 import com.example.quangtruong3851050176.R;
-import com.example.quangtruong3851050176.helpers.SettingsHelper;
 import com.example.quangtruong3851050176.helpers.TodoDBHelper;
 import com.example.quangtruong3851050176.models.CompletedTodoModel;
 
@@ -40,7 +39,6 @@ public class CompletedTodoAdapter extends RecyclerView.Adapter<CompletedTodoAdap
         CompletedTodoModel completedTodoModel = completedTodoModels.get(position);
         holder.todoTitle.setPaintFlags(holder.todoTitle.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         holder.todoTitle.setText(completedTodoModel.getTodoTitle());
-        SettingsHelper.applyTextColor(holder.todoTitle, context);
         holder.todoContent.setText(completedTodoModel.getTodoContent());
         holder.todoTag.setText(completedTodoModel.getTodoTag());
         holder.todoDate.setText(completedTodoModel.getTodoDate());

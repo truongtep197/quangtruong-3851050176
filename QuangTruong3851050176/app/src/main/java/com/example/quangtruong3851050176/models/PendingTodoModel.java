@@ -3,10 +3,14 @@ package com.example.quangtruong3851050176.models;
 
 public class PendingTodoModel {
     private int todoID;
-    private String todoTitle,todoContent,todoDate,
-            todoTime,todoTag;
+    private String todoTitle,
+            todoContent,
+            todoDate,
+            todoTime,
+            todoTag;
 
-    public PendingTodoModel(){}
+    public PendingTodoModel() {
+    }
 
     public PendingTodoModel(String todoTitle, String todoContent, String todoTag, String todoDate, String todoTime) {
         this.todoTitle = todoTitle;

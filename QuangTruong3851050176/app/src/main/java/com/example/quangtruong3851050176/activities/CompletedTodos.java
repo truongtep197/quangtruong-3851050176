@@ -19,7 +19,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.quangtruong3851050176.R;
 import com.example.quangtruong3851050176.adapters.CompletedTodoAdapter;
-import com.example.quangtruong3851050176.helpers.SettingsHelper;
 import com.example.quangtruong3851050176.helpers.TodoDBHelper;
 import com.example.quangtruong3851050176.models.CompletedTodoModel;
 
@@ -36,11 +35,10 @@ public class CompletedTodos extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        SettingsHelper.applyTheme(this);
+        this.setTheme(R.style.AppTheme);
         setContentView(R.layout.activity_completed_todos);
         setSupportActionBar(findViewById(R.id.toolbar));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        SettingsHelper.applyThemeToolbar(findViewById(R.id.toolbar), this);
         setTitle(getString(R.string.complete_todo_activity_title));
         loadCompletedTodos();
     }

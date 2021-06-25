@@ -32,8 +32,6 @@ import com.example.quangtruong3851050176.activities.AllTags;
 import com.example.quangtruong3851050176.activities.AppSettings;
 import com.example.quangtruong3851050176.activities.CompletedTodos;
 import com.example.quangtruong3851050176.adapters.PendingTodoAdapter;
-import com.example.quangtruong3851050176.helpers.IntentExtras;
-import com.example.quangtruong3851050176.helpers.SettingsHelper;
 import com.example.quangtruong3851050176.helpers.TagDBHelper;
 import com.example.quangtruong3851050176.helpers.TodoDBHelper;
 import com.example.quangtruong3851050176.models.PendingTodoModel;
@@ -50,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private RecyclerView pendingTodos;
     private LinearLayoutManager linearLayoutManager;
-    private ArrayList<PendingTodoModel> pendingTodoModels;
+    private ArrayList<PendingTodoModel> pendingTodoModels = new ArrayList<>();
     private PendingTodoAdapter pendingTodoAdapter;
     private FloatingActionButton addNewTodo;
     private TagDBHelper tagDBHelper;
@@ -61,17 +59,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        SettingsHelper.applyTheme(this);
+        this.setTheme(R.style.AppTheme);
         setContentView(R.layout.activity_main);
         setSupportActionBar(findViewById(R.id.toolbar));
-        SettingsHelper.applyThemeToolbar(findViewById(R.id.toolbar), this);
         setTitle(getString(R.string.app_title));
         showDrawerLayout();
         navigationMenuInit();
         loadPendingTodos();
     }
 
-    //loading all the pending todos
+    //lay danh sach cong viec dang thuc hien, khoi tao va cai dat recycler view
     private void loadPendingTodos() {
         pendingTodos = (RecyclerView) findViewById(R.id.pending_todos_view);
         linearLayout = (LinearLayout) findViewById(R.id.no_pending_todo_section);
@@ -82,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             linearLayout.setVisibility(View.VISIBLE);
             pendingTodos.setVisibility(View.GONE);
         } else {
-            pendingTodoModels = new ArrayList<>();
+
             pendingTodoModels = todoDBHelper.fetchAllTodos();
             pendingTodoAdapter = new PendingTodoAdapter(pendingTodoModels, this);
         }
@@ -123,9 +120,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+
         getMenuInflater().inflate(R.menu.pending_task_options, menu);
         MenuItem menuItem = menu.findItem(R.id.search);
         SearchView searchView = (SearchView) menuItem.getActionView();
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -134,20 +133,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                newText = newText.toLowerCase();
+
+                if (pendingTodoModels.size() == 0) {
+                    return false;
+                }
+
+                String query = newText.toLowerCase();
                 ArrayList<PendingTodoModel> newPendingTodoModels = new ArrayList<>();
                 for (PendingTodoModel pendingTodoModel : pendingTodoModels) {
                     String getTodoTitle = pendingTodoModel.getTodoTitle().toLowerCase();
                     String getTodoContent = pendingTodoModel.getTodoContent().toLowerCase();
                     String getTodoTag = pendingTodoModel.getTodoTag().toLowerCase();
 
-                    if (getTodoTitle.contains(newText) || getTodoContent.contains(newText) || getTodoTag.contains(newText)) {
+                    if (getTodoTitle.contains(query) || getTodoContent.contains(query) || getTodoTag.contains(query)) {
                         newPendingTodoModels.add(pendingTodoModel);
                     }
                 }
                 pendingTodoAdapter.filterTodos(newPendingTodoModels);
                 pendingTodoAdapter.notifyDataSetChanged();
-                return true;
+                return false;
             }
         });
         return super.onCreateOptionsMenu(menu);
@@ -172,6 +176,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
+    //bat su kien click vao menu drawer
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -220,7 +225,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     //hien thi dialog them cong viec va thuc hien them cong viec
     private void showNewTodoDialog() {
-        //getting current calendar credentials
         final Calendar calendar = Calendar.getInstance();
         final int year = calendar.get(Calendar.YEAR);
         final int month = calendar.get(Calendar.MONTH);
@@ -232,7 +236,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         LayoutInflater layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final View view = layoutInflater.inflate(R.layout.add_new_todo_dialog, null);
         builder.setView(view);
-        SettingsHelper.applyThemeTextView((TextView) view.findViewById(R.id.add_todo_dialog_title), this);
         final TextInputEditText todoTitle = (TextInputEditText) view.findViewById(R.id.todo_title);
         final TextInputEditText todoContent = (TextInputEditText) view.findViewById(R.id.todo_content);
         Spinner todoTags = (Spinner) view.findViewById(R.id.todo_tag);
@@ -288,8 +291,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
         TextView cancel = (TextView) view.findViewById(R.id.cancel);
         TextView addTodo = (TextView) view.findViewById(R.id.add_new_todo);
-        SettingsHelper.applyTextColor(cancel, this);
-        SettingsHelper.applyTextColor(addTodo, this);
 
         addTodo.setOnClickListener(new View.OnClickListener() {
             @Override

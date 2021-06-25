@@ -44,7 +44,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     //xoa bang cong viec
     private static final String DROP_TODOS_TABLE = "DROP TABLE IF EXISTS " + TABLE_TODO_NAME;
 
-
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }

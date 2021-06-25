@@ -27,6 +27,13 @@
     <style name="PositiveButtonStyle" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">
         <item name="android:textColor">#00f</item>
     </style>
+    <style name="Theme.QuangTruong3851050176.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+    <style name="Theme.QuangTruong3851050176.AppBarOverlay"
+        parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="Theme.QuangTruong3851050176.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 
 </resources>

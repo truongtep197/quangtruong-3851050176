@@ -22,7 +22,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.quangtruong3851050176.R;
 import com.example.quangtruong3851050176.adapters.TagAdapter;
-import com.example.quangtruong3851050176.helpers.SettingsHelper;
 import com.example.quangtruong3851050176.helpers.TagDBHelper;
 import com.example.quangtruong3851050176.models.TagsModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -42,12 +41,11 @@ public class AllTags extends AppCompatActivity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        SettingsHelper.applyTheme(this);
+        this.setTheme(R.style.AppTheme);
         setContentView(R.layout.activity_all_tags);
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
         setTitle(getString(R.string.all_tags_title));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        SettingsHelper.applyThemeToolbar(findViewById(R.id.toolbar), this);
         loadTags();
     }
 
@@ -130,12 +128,10 @@ public class AllTags extends AppCompatActivity implements View.OnClickListener {
         LayoutInflater layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final View view = layoutInflater.inflate(R.layout.add_new_tag_dialog, null);
         builder.setView(view);
-        SettingsHelper.applyThemeTextView((TextView) view.findViewById(R.id.add_tag_dialog_title), this);
         final TextInputEditText tagTitle = (TextInputEditText) view.findViewById(R.id.tag_title);
         final TextView cancel = (TextView) view.findViewById(R.id.cancel);
         final TextView addNewtag = (TextView) view.findViewById(R.id.add_new_tag);
-        SettingsHelper.applyTextColor(cancel, this);
-        SettingsHelper.applyTextColor(addNewtag, this);
+
 
         addNewtag.setOnClickListener(new View.OnClickListener() {
             @Override

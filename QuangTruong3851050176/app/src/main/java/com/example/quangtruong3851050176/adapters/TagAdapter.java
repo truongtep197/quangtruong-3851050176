@@ -2,7 +2,6 @@ package com.example.quangtruong3851050176.adapters;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,8 +16,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.quangtruong3851050176.R;
-import com.example.quangtruong3851050176.activities.AllTags;
-import com.example.quangtruong3851050176.helpers.SettingsHelper;
 import com.example.quangtruong3851050176.helpers.TagDBHelper;
 import com.example.quangtruong3851050176.models.TagsModel;
 import com.google.android.material.textfield.TextInputEditText;
@@ -117,13 +114,11 @@ public class TagAdapter extends RecyclerView.Adapter<TagAdapter.TagDataHolder> {
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final View view = layoutInflater.inflate(R.layout.edit_tag_dialog, null);
         builder.setView(view);
-        SettingsHelper.applyThemeTextView((TextView) view.findViewById(R.id.edit_tag_dialog_title), context);
         final TextInputEditText tagEditTitle = (TextInputEditText) view.findViewById(R.id.edit_tag_title);
         tagEditTitle.setText(tagDBHelper.fetchTagTitle(tagID));
         final TextView cancel = (TextView) view.findViewById(R.id.cancel);
         final TextView editNewtag = (TextView) view.findViewById(R.id.edit_new_tag);
-        SettingsHelper.applyTextColor(cancel, context);
-        SettingsHelper.applyTextColor(editNewtag, context);
+
         AlertDialog dialog = builder.create();
 
         editNewtag.setOnClickListener(new View.OnClickListener() {
